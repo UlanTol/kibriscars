@@ -4,7 +4,7 @@
   "host": "localhost",
   "port": 3306,
   "username": "root",
-  "password": "",
+  "password": "Ulan101010",
   "database": "kibriscars",
   "entities": ["dist/**/entities/*{.ts,.js}"],
   "synchronize": true,
@@ -12,4 +12,4 @@
   "cli": {
     "migrationsDir": "src/migrations"
   }
-},
+}
