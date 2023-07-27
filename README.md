@@ -1,6 +1,10 @@
 # kibriscars
+#my projects
 
-my projects
+TS, React, Redux Toolkit, Docker, Nginx, NestJS, GraphQl, TypeORM
+
+https://ulantol.github.io/kibriscars/ 
+the backend does not run in server!
 
 # Сonfiguration API
 
@@ -51,5 +55,9 @@ npm run start:dev
 
 **backend**
 npm start
+
+**GraphQL**
+
+http://localhost:9000/graphql
 
 Goodluck)
