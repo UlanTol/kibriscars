@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 import { ICar } from "../../../typings/car";
@@ -7,7 +7,20 @@ import Carousel, { Dots, slidesToShowPlugin } from "@brainhubeu/react-carousel";
 import "@brainhubeu/react-carousel/lib/style.css";
 import { useMediaQuery } from "react-responsive";
 import { SCREENS } from "../../components/responsive";
+import carsService from "../../services/carsService";
+import { createSelector, Dispatch } from "@reduxjs/toolkit";
+import { GetCars_cars } from "../../services/carsService/__generated__/GetCars";
+import { setTopCars } from "./slice";
+import { useDispatch, useSelector } from "react-redux";
+import { makeSelectTopCars } from "./selectors";
 
+const actionDispatch = (dispatch: Dispatch) => ({
+  setTopCars: (cars: GetCars_cars[]) => dispatch(setTopCars(cars)),
+});
+
+const stateSelector = createSelector(makeSelectTopCars, topCars => ({
+  topCars,
+}));
 const TopCars = () => {
   const testCar: ICar = {
     name: "Audi S3",
@@ -35,56 +48,80 @@ const TopCars = () => {
 
   const isMobile = useMediaQuery({ maxWidth: SCREENS.sm });
 
-  let cars = [
-    <Car {...testCar} />,
-    <Car {...testCar} />,
-    <Car {...testCar} />,
-    <Car {...testCar} />,
-  ];
+  const { topCars } = useSelector(stateSelector);
+  const { setTopCars } = actionDispatch(useDispatch());
+
+  const fetchTopCars = async () => {
+    const cars = await carsService.getCars().catch(err => console.log(err));
+
+    console.log(cars);
+    if (cars) setTopCars(cars);
+  };
+
+  useEffect(() => {
+    fetchTopCars();
+  }, []);
+
+  const isEmptyTopCars = !topCars || topCars.length === 0;
+
+  const cars =
+    (!isEmptyTopCars &&
+      topCars.map(car => <Car {...car} thumbnailSrc={car.thumbnailUrl} />)) ||
+    [];
+
+  if (isEmptyTopCars) return null;
+  // let cars = [
+  //   <Car {...testCar} />,
+  //   <Car {...testCar} />,
+  //   <Car {...testCar} />,
+  //   <Car {...testCar} />,
+  // ];
 
   const numberOfDots = isMobile ? cars.length : Math.ceil(cars.length / 3);
 
   return (
     <TopCarsContainer>
       <Title>Explore Our Top Deals</Title>
-      <CarsContainer>
-        <Carousel
-          value={current}
-          onChange={setCurrent}
-          slides={cars}
-          plugins={[
-            {
-              resolve: slidesToShowPlugin,
-              options: {
-                numberOfSlides: 3,
+      {!isEmptyTopCars && (
+        <CarsContainer>
+          <Carousel
+            value={current}
+            onChange={setCurrent}
+            slides={cars}
+            plugins={[
+              {
+                resolve: slidesToShowPlugin,
+                options: {
+                  numberOfSlides: 3,
+                },
               },
-            },
-          ]}
-          breakpoints={{
-            640: {
-              plugins: [
-                {
-                  resolve: slidesToShowPlugin,
-                  options: {
-                    numberOfSlides: 1,
+            ]}
+            breakpoints={{
+              640: {
+                plugins: [
+                  {
+                    resolve: slidesToShowPlugin,
+                    options: {
+                      numberOfSlides: 1,
+                    },
                   },
-                },
-              ],
-            },
-            900: {
-              plugins: [
-                {
-                  resolve: slidesToShowPlugin,
-                  options: {
-                    numberOfSlides: 2,
+                ],
+              },
+              900: {
+                plugins: [
+                  {
+                    resolve: slidesToShowPlugin,
+                    options: {
+                      numberOfSlides: 2,
+                    },
                   },
-                },
-              ],
-            },
-          }}
-        />
-        <Dots value={current} onChange={setCurrent} number={numberOfDots} />
-      </CarsContainer>
+                ],
+              },
+            }}
+          />
+          <Dots value={current} onChange={setCurrent} number={numberOfDots} />
+        </CarsContainer>
+      )}
     </TopCarsContainer>
   );
 };

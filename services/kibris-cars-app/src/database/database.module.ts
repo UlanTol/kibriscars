@@ -20,6 +20,9 @@ import { Connection } from 'typeorm';
         cli: {
           migrationsDir: 'src/migrations',
         },
+        ...(process.env.NODE_ENV === 'production'
+          ? { logging: false }
+          : { logging: true }),
       }),
       inject: [ConfigService],
     }),

@@ -4,7 +4,6 @@ import {
   faTachometerAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 import { ICar } from "../../../typings/car";
@@ -22,11 +21,11 @@ const CarContainer = styled.div`
 
 const CarThumbnail = styled.div`
   width: 100%;
-  height: auto;
+  height: 10em;
 
   img {
     width: 100%;
-    height: 100%;
+    height: 8em;
   }
 `;
 
@@ -55,7 +54,7 @@ const SmallIcon = styled.span`
   ${tw`mr-1 text-sm text-gray-400 `};
 `;
 
-const CarDetailsContainer = styled.div`
+const CarDetailsContainer = styled.span`
   ${tw`flex justify-between w-full `};
 `;
 
@@ -65,12 +64,6 @@ const CarDetail = styled.span`
 
 const CarInfo = styled.h6`
   ${tw`text-xs text-gray-400 `};
-`;
-
-const Separator = styled.div`
-  min-width: 100%;
-  min-height: 1px;
-  ${tw`flex mt-1 mb-1 bg-gray-300 `};
 `;
 
 const RentButton = styled(Button)`
@@ -104,7 +97,6 @@ export function Car(props: ICarProps) {
           <SmallText>/Month</SmallText>
         </MonthlyPrice>
       </PricesContainer>
-      <Separator />
       <CarDetailsContainer>
         <CarDetail>
           <SmallIcon>
