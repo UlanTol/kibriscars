@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/kibriscars/static/css/main.fab37981.css",
+    "main.js": "/kibriscars/static/js/main.1cdcdc85.js",
+    "static/js/787.28cb0dcd.chunk.js": "/kibriscars/static/js/787.28cb0dcd.chunk.js",
+    "static/media/jeep.png": "/kibriscars/static/media/jeep.18461d13eb608d076dda.png",
+    "static/media/mclaren-orange-big.png": "/kibriscars/static/media/mclaren-orange-big.46e3c615f2d4c2513ce5.png",
+    "index.html": "/kibriscars/index.html",
+    "static/media/blob.svg": "/kibriscars/static/media/blob.f2195ec62f0748be8f89a49cc63bf8b9.svg",
+    "main.fab37981.css.map": "/kibriscars/static/css/main.fab37981.css.map",
+    "main.1cdcdc85.js.map": "/kibriscars/static/js/main.1cdcdc85.js.map",
+    "787.28cb0dcd.chunk.js.map": "/kibriscars/static/js/787.28cb0dcd.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fab37981.css",
+    "static/js/main.1cdcdc85.js"
+  ]
+}
